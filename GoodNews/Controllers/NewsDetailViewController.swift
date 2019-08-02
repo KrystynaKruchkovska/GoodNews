@@ -30,17 +30,12 @@ extension NewsDetailViewController {
         
         self.title = article.sourseName
         
-        guard let url = article.url else {
-            fatalError("url is not found")
+        guard let url = newsDetailsViewModel.url,
+            let newsDetailURL = URL(string: url) else {
+                fatalError("url is not found")
         }
-        
-        guard let newsDetailURL = URL(string: url) else {
-            return
-        }
-        
-        guard let request = URLRequest(url: newsDetailURL) else {
-            return
-        }
+        let request = URLRequest(url: newsDetailURL)
+        self.webView.load(request)
     }
 }
 
